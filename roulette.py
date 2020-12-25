@@ -4,7 +4,6 @@
 # List of items
 # turn
 # choose item
-# confirm
 # Roulette process
 # results
 # who won
@@ -21,8 +20,12 @@ global Player1
 global Player2
 global player1chosenItem
 global player2chosenItem
+global player1turnItem
+global player2turnItem
+global player
+global gameover
 
-player = 1
+gameover = False
 
 def instructions():
     print("HI, Welcome to Roulette!!")
@@ -87,13 +90,56 @@ def player2bet():
         else:
             itemChosen = input("You don't have that item choose another: ")
 
+def player1turn():
+    global player
+    global player1turnItem
+    player = 1
+    player1turnItem = ""
+    itemChosen = str(input(Player1 + ", bet which item won't come out of the Roulette: "))
+
+    while player1turnItem == "":
+        if itemChosen in items:
+            player1turnItem = itemChosen
+            player = 2
+        else:
+            itemChosen = input("Invalid item!! Choose another: ")
+    
+def player2turn():
+    global player2turnItem
+    global player
+    player = 2
+    player2turnItem = ""
+    itemChosen = str(input(Player2 + ", bet which item won't come out of the Roulette: "))
+
+    while player2turnItem == "":
+        if itemChosen in items:
+            player2turnItem = itemChosen
+            player = 1
+        else:
+            itemChosen = input("Invalid item!! Choose another: ")
+
+def logic():
+    printPlayer1inv()
+    printPlayer2inv()
+    enterAnyKey(True)
+    player1bet()
+    player2bet()
+    enterAnyKey(False)
+    printItems()
+
+def move():
+    global gameover
+    global player
+    player = 1
+    logic()
+    while gameover == False:
+        if player == 1:
+            player1turn()
+        if player == 2:
+            player2turn()
+
 
 instructions()
 enterAnyKey(False)
 enterName()
-printPlayer1inv()
-printPlayer2inv()
-enterAnyKey(True)
-player1bet()
-player2bet()
-enterAnyKey(False)
+move()
