@@ -20,6 +20,8 @@ global player
 global gameover
 global items
 global resultItem
+global player1wrong
+global player2wrong
 
 items = ["Pencil", "Eraser", "Diamond", "Gold", "Leather", "Keyboard"]
 
@@ -120,6 +122,14 @@ def player2turn():
         else:
             itemChosen = input("Invalid item!! Choose another: ")
 
+def checkWin():
+    global player1wrong
+    global player2wrong
+
+    if player1wrong == True and player2wrong == True:
+        print("Both of yours answers were wrong, you both get each other's items!")
+
+
 def rouletteProcess():
     global resultItem
     global items
@@ -137,6 +147,7 @@ def logic():
     printItems()
 
 def player1move():
+    global player1wrong
     global player1chosenItem
     global player1turnItem
     global resultItem
@@ -150,9 +161,11 @@ def player1move():
         print("Sed, you lost this round")
         player1inv.remove(player1chosenItem)
         player2inv.append(player1chosenItem)
+        player1wrong = True
         pass
     
 def player2move():
+    global player2wrong
     global player2chosenItem
     global player2turnItem
     global resultItem
@@ -166,6 +179,7 @@ def player2move():
         print("Sed, you lost this round")
         player1inv.remove(player2chosenItem)
         player2inv.append(player2chosenItem)
+        player2wrong = True
         pass
     
 def move():
@@ -176,6 +190,8 @@ def move():
     while gameover == False:
         player1move()
         player2move()
+        checkWin()
+        logic()
 
 instructions()
 enterAnyKey(False)
