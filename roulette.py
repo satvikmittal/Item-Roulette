@@ -10,12 +10,6 @@
 
 import random
 
-items = ["Pencil", "Eraser", "Diamond", "Gold", "Leather", "Keyboard"]
-
-player1inv = ["Car", "House", "Mobile", "PC"]
-
-player2inv = ["$100,000", "House", ""]
-
 global Player1
 global Player2
 global player1chosenItem
@@ -24,6 +18,16 @@ global player1turnItem
 global player2turnItem
 global player
 global gameover
+global items
+global resultItem
+
+items = ["Pencil", "Eraser", "Diamond", "Gold", "Leather", "Keyboard"]
+
+player1inv = ["Car", "House", "Mobile", "PC"]
+
+player2inv = ["$100,000", "House", ""]
+
+
 
 gameover = False
 
@@ -100,7 +104,6 @@ def player1turn():
     while player1turnItem == "":
         if itemChosen in items:
             player1turnItem = itemChosen
-            player = 2
         else:
             itemChosen = input("Invalid item!! Choose another: ")
     
@@ -114,9 +117,15 @@ def player2turn():
     while player2turnItem == "":
         if itemChosen in items:
             player2turnItem = itemChosen
-            player = 1
         else:
             itemChosen = input("Invalid item!! Choose another: ")
+
+def rouletteProcess():
+    global resultItem
+    global items
+    i = random.randint(0, len(items))
+    resultItem = items[i]
+    print("The item that has came out of the roulette is: " + resultItem)
 
 def logic():
     printPlayer1inv()
@@ -127,17 +136,46 @@ def logic():
     enterAnyKey(False)
     printItems()
 
+def player1move():
+    global player1chosenItem
+    global player1turnItem
+    global resultItem
+    player1turn()
+    rouletteProcess()
+    if player1turnItem != resultItem:
+        print("Your guess was right!! " + Player2 + " your turn")
+        pass
+
+    else:
+        print("Sed, you lost this round")
+        player1inv.remove(player1chosenItem)
+        player2inv.append(player1chosenItem)
+        pass
+    
+def player2move():
+    global player2chosenItem
+    global player2turnItem
+    global resultItem
+    player2turn()
+    rouletteProcess()
+    if player2turnItem != resultItem:
+        print("Your guess was right!!")
+        pass
+
+    else:
+        print("Sed, you lost this round")
+        player1inv.remove(player2chosenItem)
+        player2inv.append(player2chosenItem)
+        pass
+    
 def move():
     global gameover
     global player
     player = 1
     logic()
     while gameover == False:
-        if player == 1:
-            player1turn()
-        if player == 2:
-            player2turn()
-
+        player1move()
+        player2move()
 
 instructions()
 enterAnyKey(False)
