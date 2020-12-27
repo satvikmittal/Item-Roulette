@@ -25,11 +25,9 @@ global player2wrong
 
 items = ["Pencil", "Eraser", "Diamond", "Gold", "Leather", "Keyboard"]
 
-player1inv = ["Car", "House", "Mobile", "PC"]
+player1inv = ["Car", "House"]
 
-player2inv = ["$100,000", "House", ""]
-
-
+player2inv = ["PC", "Mobile"]
 
 gameover = False
 
@@ -40,19 +38,25 @@ def instructions():
     print("Have fun and don't lose!")
 
 def printItems():
+    print("")
     print("Here are the items present in the Roulette")
+    print("")
     for i in items:
         print(i)
+    print("")
 
 def printPlayer1inv():
+    print("")
     print(Player1 + ", These are the items you have")
     for i in player1inv:
         print(i)
 
 def printPlayer2inv():
+    print("")
     print(Player2 + ", These are the items you have")
     for i in player2inv:
         print(i)
+    print("")
 
 def enterName():
     global Player1
@@ -136,15 +140,34 @@ def checkWin():
         print("Both of yours guesses were right!! Now next round")
         print("")
 
+    elif player1wrong == True and player2wrong == False:
+        print("")
+        print(Player2 + " won this round!!")
+        print("")
+
+    elif player1wrong == False and player2wrong == True:
+        print("")
+        print(Player1 + " won this round!!")
+        print("")
+
 
 def rouletteProcess():
     global resultItem
     global items
-    i = random.randint(0, len(items))
-    resultItem = items[i]
-    print("")
-    print("The item that has came out of the roulette is: " + resultItem)
-    print("")
+    try:
+        i = random.randint(0, len(items))
+        resultItem = items[i]
+        print("")
+        print("The item that has came out of the roulette is: " + resultItem)
+        print("")
+
+    except IndexError:
+        i = random.randint(0, len(items))
+        resultItem = items[i]
+        print("")
+        print("The item that has came out of the roulette is: " + resultItem)
+        print("")
+        
 
 def logic():
     printPlayer1inv()
