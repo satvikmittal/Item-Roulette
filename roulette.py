@@ -155,6 +155,7 @@ def player1move():
     rouletteProcess()
     if player1turnItem != resultItem:
         print("Your guess was right!! " + Player2 + " your turn")
+        player1wrong = False
         pass
 
     else:
@@ -173,6 +174,7 @@ def player2move():
     rouletteProcess()
     if player2turnItem != resultItem:
         print("Your guess was right!!")
+        player2wrong = False
         pass
 
     else:
@@ -191,6 +193,10 @@ def move():
         player1move()
         player2move()
         checkWin()
+        print("")
+        print("Both of you made right guesses!! Now the next round")
+        print("")
+        enterAnyKey(True)
         logic()
 
 instructions()
