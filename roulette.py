@@ -127,7 +127,14 @@ def checkWin():
     global player2wrong
 
     if player1wrong == True and player2wrong == True:
+        print("")
         print("Both of yours answers were wrong, you both get each other's items!")
+        print("")
+
+    elif player1wrong == False and player2wrong == False:
+        print("")
+        print("Both of yours guesses were right!! Now next round")
+        print("")
 
 
 def rouletteProcess():
@@ -135,7 +142,9 @@ def rouletteProcess():
     global items
     i = random.randint(0, len(items))
     resultItem = items[i]
+    print("")
     print("The item that has came out of the roulette is: " + resultItem)
+    print("")
 
 def logic():
     printPlayer1inv()
@@ -171,16 +180,20 @@ def player2move():
     global player2turnItem
     global resultItem
     player2turn()
+    print("")
     rouletteProcess()
     if player2turnItem != resultItem:
+        print("")
         print("Your guess was right!!")
+        print("")
         player2wrong = False
         pass
 
     else:
         print("Sed, you lost this round")
-        player1inv.remove(player2chosenItem)
-        player2inv.append(player2chosenItem)
+        print("")
+        player2inv.remove(player2chosenItem)
+        player1inv.append(player2chosenItem)
         player2wrong = True
         pass
     
@@ -193,9 +206,6 @@ def move():
         player1move()
         player2move()
         checkWin()
-        print("")
-        print("Both of you made right guesses!! Now the next round")
-        print("")
         enterAnyKey(True)
         logic()
 
