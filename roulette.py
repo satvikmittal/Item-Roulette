@@ -150,6 +150,20 @@ def checkWin():
         print(Player1 + " won this round!!")
         print("")
 
+def GameOver():
+    global gameover
+    global player1inv
+    global player2inv
+
+    if len(player1inv) == 0:
+        print("")
+        print(Player2 + ", You won this game of Item Roulette!!")
+        gameover = True
+
+    elif len(player2inv) == 0:
+        print("")
+        print(Player1 + ", You won this game of Item Roulette!!")
+        gameover = True
 
 def rouletteProcess():
     global resultItem
@@ -229,6 +243,11 @@ def move():
         player1move()
         player2move()
         checkWin()
+        GameOver()
+        if gameover == True:
+            return
+        else:
+            pass
         enterAnyKey(True)
         logic()
 
